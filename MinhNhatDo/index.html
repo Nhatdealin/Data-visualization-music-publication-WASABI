@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/heatMap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootStrap.css">
+    <title>WASABI DATASET</title>
+</head>
+<!-- Add a slider -->
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+<!-- <script type="text/javascript" src="data.js"></script> -->
+<script src="d3-js/d3-tip.js"></script>
+<script type="text/javascript" src="generated_data/summary_country.js"></script>
+<script type="text/javascript" src="generated_data/summary_total.js"></script>
+<script type="text/javascript" src="d3-js/countrySpecificHist.js"></script>
+<script type="text/javascript" src="d3-js/generalTotal.js"></script>
+<script type="text/javascript" src="world.js"></script>
+<script type="text/javascript" src="d3-js/map.js"></script>
+<script type="text/javascript" src="d3-js/d3-simple-slider.min.js"></script>
+
+
+
+<body class = 'body' style = 'background-color:#212733 !important;'>
+    <div class = "col-lg-12" style = "width:100%;height:1%; padding-bottom:0%;background-color: black;">
+        <h1 style = "text-align: center; font-family: monospace; font-weight: bold;font-size: 30px;opacity: 1;padding-top: 0%; color: white">OVERVIEW OF MUSIC PUBLICATION</h1>
+        <center style = 'display:grid'>
+                <a style = 'font-size:90%;color:white;'>Minh Nhat Do</a>        
+        </center>
+    </div>
+
+    <div class = 'container-fluid' style = 'width:100%; height:100%'>
+        <div class = "row no-gutters" style = "width:100%;height:100%; max-width:100%; max-height: 100%; padding-top:12px; flex-wrap: wrap">
+            <div class = "col-md-2" style="height: 100%; max-width: 100%;" id = "divBoxtopworld_race">
+                <div class = 'card' style = 'height:98.5%;width: 100%;background : #2D3642;' id = 'generalDiv'>
+                    <svg style = 'padding-top:3%;' width="100%" id = "Totalsummary" class = 'zulu'></svg>
+                </div>
+                <div style = 'height: 1.5%'></div>
+                <div class = 'card' style = 'height:100%; background : #2D3642;' id = 'worldRaceDiv'>
+                    <svg width="100%" id = "worldRace" class = 'charlie'></svg>
+                </div>
+            </div>
+            <div style = 'width: 0.7%'></div>
+            <div class = "col-md-9" style="height:100%;width:100%;min-width:45%;" id = "divBox">
+                <div class = 'card' style = 'height:100%;background : #2D3642;' id = 'nodeDiv'>
+                        <svg width="100%" id = "node" class = 'bravo'></svg>
+                    <div class = 'aboveMap'>
+                            <center style='padding-top:1%; padding-bottom:0%;'> 
+                            <text style = 'color:white;'>Click to visualize graphs per country</text>
+                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="countrySpecificHist('total');document.getElementById('resetButton').style.visibility= 'hidden'">
+                                Reset</button>
+                        </center>
+                    </div>
+
+
+                </div>
+                <div style = 'height: 4.5%'></div>
+                <div class = 'card' style = 'height: 350px; background: #2d3642' id = 'lineDiv'>
+                    <svg height ="350px" width="100%" id = "lineNode" class = 'delta'></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    </div>
+    <script>
+        if(document.documentElement.scrollHeight <= document.documentElement.offsetWidth){
+            //first column
+            document.getElementById("Totalsummary").style.height = (document.documentElement.scrollHeight * 0.26) + "px"
+            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.52) + "px"
+            // document.getElementById("statusNode").style.height = (document.documentElement.scrollHeight * 0.1) + "px"
+
+            //second column
+            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.40) + "px"
+
+            //Second column
+
+        }
+        else{
+            document.getElementById("Top6").style.height = (390) + "px"
+            document.getElementById("worldRace").style.height = (500) + "px"
+            // document.getElementById("statusNode").style.height = (196) + "px"
+        }
+    </script>
+    <script>
+
+var margin = {top: 20, right: 100, bottom: 20, left: 20},
+        padding = {top: 0, right: 0, bottom: 0, left: 0},
+        vizWidth = 960,
+        vizHeight = 500,
+        plotWidth = vizWidth - margin.left - margin.right,
+        plotHeight = vizHeight - margin.top - margin.bottom,
+        panelWidth = plotWidth - padding.left - padding.right,
+        panelHeight = plotHeight - padding.top - padding.bottom;
+
+var div = d3.select('body')
+                .append('div')
+                .style('position', 'absolute')
+                .style('left', '10px')
+                .style('top', '30px')
+                .style('background-color', 'black')
+                .style('color', 'white')
+// The svg
+var year = 2010
+var min_year = d3.min(data_year, function(d) { return d["year"]; }),
+    max_year = d3.max(data_year, function(d) { return d["year"]; });
+
+var dataTime = d3.range(min_year, max_year).map(function(d) {
+    return new Date(d, 1, 1);
+  });
+var slider = d3
+    .sliderVertical()
+    .min((new Date(min_year,1,1)))
+    .max((new Date(max_year + 1,1,1)))
+    .step(1000 * 60 * 60 * 24 * 365)
+    .width(1000)
+    .height(300)
+    .default(year)
+    .tickFormat(d3.timeFormat('%Y'))
+    .on('onchange', year_val => {
+        year = year_val.getFullYear();
+        update_data();
+        updateMap(world, data_song, data_album, data_artist);
+        generalSummary(year);
+    });
+ 
+  d3.selectAll("#worldRace")
+    .append('g')
+    .attr("class", "slider")
+    .attr('width', 100)
+    .attr('height', 500)
+    .attr("x", 100)
+    .attr("y", 100)
+    .append('g')
+    .attr('transform', 'translate(100,50)')
+    .text("Select year to filter")
+    .style('fill', 'white')
+    .call(slider);
+
+
+// Map and projection
+
+
+// Data and color scale
+var data_song = d3.map()
+    data_album = d3.map()
+    data_artist = d3.map();
+function update_data(){
+    data_song = d3.map()
+    data_album = d3.map()
+    data_artist = d3.map()
+    filtered_data = data_year.filter(function(item){
+    return item.year == year})
+    var result = [];
+    filtered_data.reduce(function(res, value) {
+       if (!res[value.code]) {
+            res[value.code] = { code: value.code, count_song: 0 , count_album: 0, count_artist: 0};
+            result.push(res[value.code])
+          }
+      res[value.code].count_song +=  value.count_song
+      res[value.code].count_album +=  value.count_album
+      if(!isNaN(value.count_artist)){
+        res[value.code].count_artist +=  value.count_artist
+      }
+        
+      return res;
+    }, {});
+    
+    result.forEach(function(d) { 
+                data_song.set(d.code, +d.count_song);
+                data_album.set(d.code, +d.count_album);
+                data_artist.set(d.code, +d.count_artist);
+                })
+}
+function removeElementsByClass(className){
+            var elements = document.getElementsByClassName(className);
+            while(elements.length > 0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        }
+
+update_data()
+updateMap(world, data_song, data_album, data_artist)
+countrySpecificHist("total")
+generalSummary(year)
+var w = window.innerWidth;
+        var h = window.innerHeight;
+        window.addEventListener("resize", function(event){
+            var new_w = window.innerWidth;
+            var new_h = window.innerHeight;
+
+            if( Math.abs(w*h - new_w*new_h) > 100000){
+                updateMap(world, data_song, data_album, data_artist);
+                // worldRace('all');
+                // top6();
+                // countrySpecificHist('all');
+                // lineGraph('all');
+                // worldPercent('all');
+                // latestCases('all');
+            }
+
+        });
+
+</script>
+
+</body>

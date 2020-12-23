@@ -1,0 +1,156 @@
+path.area{
+  stroke-width:0.5;
+  stroke: black;
+}
+path.area.highlight{
+  stroke-width:2;
+  stroke: black;
+}
+
+rect.zoom-panel {
+  cursor: move;
+  fill:#2d3642;
+  pointer-events: all;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+        }
+
+.line_recovered {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+        }
+
+.line_active {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+        }
+
+.line_deaths {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+        }
+.zoom {
+    cursor: move;
+    fill: none;
+    pointer-events: all;
+}
+/* .overlay {
+    position: absolute;
+    background: rgba(100,100,100,0);
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+} */
+/*         
+.col-md-4 hist{
+
+    @media screen and  (max-width: 1639px){
+            min-width: 30%;
+    }  
+
+    @media screen and (min-width:900px) and (max-width: 1400px){
+            min-width: 0%;
+        
+    }   
+} */
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+div#layout {
+  text-align: center;
+}
+
+div#container {
+  width: 1000px;
+  height: 600px;
+  margin: auto;
+  background-color: #2F4A6D;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+.bar {
+  fill: #80cbc4;
+}
+
+text {
+  font-size: 12px;
+  fill: #fff;
+}
+
+path {
+  stroke: gray;
+}
+
+/*line {
+  stroke: gray;
+}*/
+
+line.track {
+  stroke: #2E86C1;
+}
+
+/*line.track-overlay {
+  stroke: gray;
+}*/
+
+line.track-inset {
+  stroke: #2E86C1;
+}
+
+
+line#limit {
+  stroke: #FED966;
+  stroke-width: 3;
+  stroke-dasharray: 3 6;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
+.grid .tick line {
+  stroke: #9FAAAE;
+  stroke-opacity: 0.3;
+}
+
+text.divergence {
+  font-size: 14px;
+  fill: #ECF0F1;
+}
+
+text.value {
+  font-size: 14px;
+}
+
+text.title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+text.label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+text.source {
+  font-size: 10px;
+}
