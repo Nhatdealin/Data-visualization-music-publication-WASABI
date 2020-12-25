@@ -20,7 +20,7 @@
 <script src="d3-js/d3-tip.js"></script>
 <script type="text/javascript" src="generated_data/summary_country.js"></script>
 <script type="text/javascript" src="generated_data/summary_total.js"></script>
-<script type="text/javascript" src="d3-js/countrySpecificHist.js"></script>
+<script type="text/javascript" src="d3-js/countrySpecificBar.js"></script>
 <script type="text/javascript" src="d3-js/generalTotal.js"></script>
 <script type="text/javascript" src="world.js"></script>
 <script type="text/javascript" src="d3-js/map.js"></script>
@@ -54,7 +54,7 @@
                     <div class = 'aboveMap'>
                             <center style='padding-top:1%; padding-bottom:0%;'> 
                             <text style = 'color:white;'>Click to visualize graphs per country</text>
-                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="countrySpecificHist('total');document.getElementById('resetButton').style.visibility= 'hidden'">
+                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="countrySpecificBar('total');document.getElementById('resetButton').style.visibility= 'hidden'">
                                 Reset</button>
                         </center>
                     </div>
@@ -74,17 +74,17 @@
         if(document.documentElement.scrollHeight <= document.documentElement.offsetWidth){
             //first column
             document.getElementById("Totalsummary").style.height = (document.documentElement.scrollHeight * 0.26) + "px"
-            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.52) + "px"
+            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.625) + "px"
             // document.getElementById("statusNode").style.height = (document.documentElement.scrollHeight * 0.1) + "px"
 
             //second column
-            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.40) + "px"
+            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.45) + "px"
 
             //Second column
 
         }
         else{
-            document.getElementById("Top6").style.height = (390) + "px"
+            document.getElementById("Totalsummary").style.height = (390) + "px"
             document.getElementById("worldRace").style.height = (500) + "px"
             // document.getElementById("statusNode").style.height = (196) + "px"
         }
@@ -188,7 +188,7 @@ function removeElementsByClass(className){
 
 update_data()
 updateMap(world, data_song, data_album, data_artist)
-countrySpecificHist("total")
+countrySpecificBar("total")
 generalSummary(year)
 var w = window.innerWidth;
         var h = window.innerHeight;

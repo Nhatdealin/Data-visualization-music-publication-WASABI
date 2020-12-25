@@ -1,6 +1,6 @@
 
 
-function countrySpecificHist(country){
+function countrySpecificBar(country){
 
     var parseDate = d3.timeParse("%Y-%m-%d");
     let margin = {
@@ -15,7 +15,7 @@ function countrySpecificHist(country){
     let data = []
     if(country == "total"){
         temp_data = data_year.filter(function(item){
-            return item.year >= 2005})
+            return item.year >= 1990})
         var result = [];
         temp_data.reduce(function(res, value) {
            if (!res[value.year]) {
@@ -31,7 +31,7 @@ function countrySpecificHist(country){
             country = "United States Of America"
         }
          data = data_year.filter(function(item){
-            return item.name == country & item.year >= 2005})
+            return item.name == country & item.year >= 1990})
     }
     var min_X = d3.min(data, function(d) { return d["year"]; }),
         max_X = d3.max(data, function(d) { return d["year"]; }),
@@ -62,8 +62,8 @@ function countrySpecificHist(country){
     const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
     const xScale = d3.scaleBand()
       .range([0, width])
-      .domain(range(2005,max_year,1))
-      .padding(0.4)
+      .domain(range(1990,max_year,1))
+      .padding(0.2)
     const yScale = d3.scaleLinear()
       .range([height , 0])
       .domain([0, max_Y]);
@@ -191,6 +191,6 @@ function countrySpecificHist(country){
       .attr('x', width / 2 + margin.left)
       .attr('y', 5)
       .attr('text-anchor', 'middle')
-      .text('Number of songs in ' + country + ' from 2005 to ' + max_year)
+      .text('Number of songs in ' + country + ' from 1990 to ' + max_year)
 
 }
