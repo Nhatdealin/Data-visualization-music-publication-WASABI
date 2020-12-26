@@ -5,34 +5,36 @@ function countrySpecificBar(country){
     var parseDate = d3.timeParse("%Y-%m-%d");
     let margin = {
         top: 20,
-        right: 50,
+        right: 30,
         bottom: 0,
-        left: 60
+        left: 55
     },
-    width = document.getElementById('lineDiv').offsetWidth*0.8 - margin.left - margin.right,
+    width = document.getElementById('lineDiv').offsetWidth - margin.left - margin.right,
     height = document.getElementById('lineDiv').offsetHeight*0.8 - margin.top - margin.bottom,
     node
+    console.log(height)
     let data = []
     if(country == "total"){
         temp_data = data_year.filter(function(item){
-            return item.year >= 1990})
-        var result = [];
-        temp_data.reduce(function(res, value) {
-           if (!res[value.year]) {
-                res[value.year] = { year: value.year, count_song: 0};
-                data.push(res[value.year])
-              }
-          res[value.year].count_song +=  value.count_song
-          return res;
-        }, {});
+            return item.year >= 1995})
     }
     else{
         if(country == "USA"){
             country = "United States Of America"
         }
-         data = data_year.filter(function(item){
-            return item.name == country & item.year >= 1990})
+         temp_data = data_year.filter(function(item){
+            return item.name == country & item.year >= 1995})
     }
+    var result = [];
+    temp_data.reduce(function(res, value) {
+       if (!res[value.year]) {
+            res[value.year] = { year: value.year, count_song: 0};
+            data.push(res[value.year])
+          }
+      res[value.year].count_song +=  value.count_song
+      return res;
+    }, {});
+
     var min_X = d3.min(data, function(d) { return d["year"]; }),
         max_X = d3.max(data, function(d) { return d["year"]; }),
         max_Y = d3.max(data, function(d) { return d["count_song"]; });
@@ -43,7 +45,7 @@ function countrySpecificBar(country){
 
     var svg = d3.select('#lineNode')
                 .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom )
+                .attr('height', height*1.4 + margin.top + margin.bottom )
                 .append('g')
                 .attr('transform', `translate(${margin.left}, ${margin.top})`)
                 // .call(
@@ -57,12 +59,12 @@ function countrySpecificBar(country){
     // the scale
 
     const chart = svg.append('g')
-        .attr('height', height*0.7)
+        .attr('height', height)
       .attr('transform', `translate(${margin.left}, ${margin.top + 10})`);
     const range = (start, stop, step) => Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step));
     const xScale = d3.scaleBand()
-      .range([0, width])
-      .domain(range(1990,max_year,1))
+      .range([0, width- 2* margin.right])
+      .domain(range(1995,max_year,1))
       .padding(0.2)
     const yScale = d3.scaleLinear()
       .range([height , 0])
@@ -94,7 +96,7 @@ function countrySpecificBar(country){
     chart.append('g')
       .attr('class', 'grid')
       .call(makeYLines()
-        .tickSize(-width, 0, 0)
+        .tickSize(-width + 2* margin.right, 0, 0)
         .tickFormat('')
       )
 
@@ -127,7 +129,7 @@ function countrySpecificBar(country){
           .attr('id', 'limit')
           .attr('x1', 0)
           .attr('y1', y)
-          .attr('x2', width)
+          .attr('x2', width- 2* margin.right)
           .attr('y2', y)
 
         barGroups.append('text')
@@ -174,7 +176,7 @@ function countrySpecificBar(country){
       .append('text')
       .attr('class', 'label')
       .attr('x', -(height / 2) - margin.left)
-      .attr('y', margin.top / 2.4)
+      .attr('y', "0px")
       .attr('transform', 'rotate(-90)')
       .attr('text-anchor', 'middle')
       .text('Number of songs')
@@ -191,6 +193,6 @@ function countrySpecificBar(country){
       .attr('x', width / 2 + margin.left)
       .attr('y', 5)
       .attr('text-anchor', 'middle')
-      .text('Number of songs in ' + country + ' from 1990 to ' + max_year)
+      .text('Number of songs in ' + country + ' from 1995 to ' + max_year)
 
 }

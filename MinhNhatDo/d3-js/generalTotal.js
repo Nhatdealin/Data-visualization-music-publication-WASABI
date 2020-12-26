@@ -15,60 +15,68 @@ function sortByProperty(property){
 
 
 function generalSummary(year){
-
-    var svgRace = d3.selectAll('#Totalsummary').attr('width',document.getElementById('generalDiv').offsetWidth);
+    var svgRace = d3.selectAll('#Totalsummary').attr('width',(document.getElementById('Totalsummary').offsetWidth));
         //Using this selection to update the SVG everytime the function is called
     svgRace.selectAll("*").remove();
     var data = data_year.filter(function(item){
         return item.year == year})
-    var sorted_data = data.sort(sortByProperty('count_song'));
-    console.log(sorted_data)
-    var sorted_3_first = [sorted_data[0], sorted_data[1], sorted_data[2]];
-    var sorted_3_second = [sorted_data[3], sorted_data[4], sorted_data[5]];
-
     var svgRace = d3.selectAll('#Totalsummary')
                     .attr('height', document.getElementById('Totalsummary').offsetHeight)
 
-    width = document.getElementById('generalDiv').offsetWidth
+    width = document.getElementById('generalDiv').offsetWidth*0.95
     height = document.getElementById('generalDiv').offsetHeight*0.95
-
-    console.log(numberWithCommas(total_summary.total_song))
-
-    svgRace.append('g')
-        .data(['General summary'])
-        .append('text')
+    svgRace.append('text')
         .text(['General summary'])
         .style('fill', 'white')
-        .style('font-size', (0.08*width)+'px')
-        .attr('x', width/7)
+        .attr("text-anchor", "middle")
+        .style('font-size', (0.09*width)+'px')
+        .attr('x', "50%")
         .attr('y', 0.08*height);
 
-    svgRace.append('g')
-        .data(['General summary'])
-        .append('text')
-        .text("Total Songs:  " + numberWithCommas(total_summary.total_song))
+    svgRace.append('text')
+        .text("Song")
         .style('fill', 'white')
-        .attr('y',0.38*height)
-        .attr('text-anchor','left')
+        .attr('y',0.20*height)
+        .attr('text-anchor','middle')
         .style('font-size', (0.072*width)+'px')
-        .attr('x', width/10);
-    svgRace.append('g')
-        .data(['General summary'])
-        .append('text')
-        .text("Total Albums:  " + numberWithCommas(total_summary.total_album))
+        .attr('x', "50%");
+    svgRace.append('text')
+        .text(numberWithCommas(d3.sum(data_song.values())))
         .style('fill', 'white')
-        .attr('y',0.58*height)
-        .attr('text-anchor','left')
-        .style('font-size', (0.072*width)+'px')
-        .attr('x', width/10);
-    svgRace.append('g')
-        .data(['General summary'])
-        .append('text')
-        .text("Total Artists:  " + numberWithCommas(total_summary.total_artist))
+        .attr('y',0.35*height)
+        .attr('text-anchor','middle')
+        .style('font-weight', 'bold')
+        .style('font-size', (0.12*width)+'px')
+        .attr('x', "50%");
+    svgRace.append('text')
+        .text("Album")
         .style('fill', 'white')
-        .attr('y',0.78*height)
-        .attr('text-anchor','left')
+        .attr('y',0.5*height)
+        .attr('text-anchor','middle')
         .style('font-size', (0.072*width)+'px')
-        .attr('x', width/10);
+        .attr('x', "50%");
+    svgRace.append('text')
+        .text(numberWithCommas(d3.sum(data_album.values())))
+        .style('fill', 'white')
+        .attr('y',0.65*height)
+        .style('font-weight', 'bold')
+        .attr('text-anchor','middle')
+        .style('font-size', (0.12*width)+'px')
+        .attr('x', "50%");
+    svgRace.append('text')
+        .text("Artist")
+        .style('fill', 'white')
+        .attr('y',0.8*height)
+        .attr('text-anchor','middle')
+        .style('font-size', (0.072*width)+'px')
+        .attr('x', "50%");
+    svgRace.append('text')
+        .text(numberWithCommas(d3.sum(data_artist.values())))
+        .style('fill', 'white')
+        .attr('y',0.95*height)
+        .style('font-weight', 'bold')
+        .attr('text-anchor','middle')
+        .style('font-size', (0.12*width)+'px')
+        .attr('x', "50%");
 
 }

@@ -129,7 +129,7 @@ function updateMap(world, data_song, data_album, data_artist){
                     // d3.selectAll('.arrow').attr('visibility','visible')
 
                     document.getElementById('resetButton').style.visibility = 'visible';
-                    countrySpecificHist(d.properties.name)
+                    countrySpecificBar(d.properties.name)
 
 
 

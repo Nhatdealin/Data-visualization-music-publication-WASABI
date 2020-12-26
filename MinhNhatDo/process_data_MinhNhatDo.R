@@ -31,17 +31,19 @@ names(filter_artists)[6] = "begin"
 filter_artists$begin = substring(filter_artists$begin, 0 , 4)
 filter_artists %>% filter(!is.na(begin))
 filter_artists$begin <- as.numeric(filter_artists$begin)
+
 albums <- albums %>% 
   filter(country != "") %>% filter(!is.na(country) & !is.na(publicationDate))
 
 names(albums)[7] = "year"
 albums$year <- as.numeric(albums$year)
 
-
-new_artist <- filter_artists %>% group_by(country, begin) %>% summarise(count_artist = n_distinct(`_id`))
+albums <- albums %>% left_join(filter_artists, by=c("id_artist"="_id")) %>% select("_id", "genre", "id_artist", "length", "name", "country.x", "year", "gender")
+names(albums)[6] = "country"
+new_artist <- filter_artists %>% group_by(country, begin, gender) %>% summarise(count_artist = n_distinct(`_id`))
 new_artist$begin <- as.numeric(new_artist$begin)
 
-new_album <- albums %>% group_by(country, year) %>% summarise(count_album = n_distinct(`_id`))
+new_album <- albums %>% group_by(country, year, gender) %>% summarise(count_album = n_distinct(`_id`))
 
 new_data <- songs %>% inner_join(albums, by=c("id_album"="_id"))
 summary(new_data)
@@ -49,23 +51,23 @@ summary(new_data)
 new_data$publicationDateAlbum <- as.numeric(new_data$publicationDateAlbum)
 
 
-new_data <- filter(new_data, !is.na(publicationDateAlbum))
+new_data <- filter(new_data, !is.na(year))
 data <- new_data %>% 
-  group_by(country,publicationDateAlbum) %>% 
+  group_by(country,year, gender) %>% 
   summarise(count_song = n_distinct(`_id`))
 data
 
 country <- read_csv('./data/country_code.csv')
 
 data <- data %>% left_join(country, by=c("country"="FIPS 10-4")) %>%
-  select(c('code', 'name', 'code_2', 'count_song', 'publicationDateAlbum'))
+  select(c('code', 'name', 'code_2', 'count_song', 'year', 'gender'))
 
 
 data <- data %>% 
-  left_join(new_album, by=c("country"= "country", "publicationDateAlbum" = "year")) %>%
-  left_join(new_artist, by=c("name"="country", "publicationDateAlbum"="begin"))
-names(data)[6] = "year"
+  left_join(new_album, by=c("country"= "country", "year" = "year", 'gender'='gender')) %>%
+  left_join(new_artist, by=c("name"="country", "year"="begin", 'gender'='gender'))
 data[is.na(data$count_artist),]$count_artist = 0
+data[is.na(data$gender),]$gender = 'Group'
 write.csv(data, "./MinhNhatDo/summary_country.csv", row.names=FALSE)
 
 data <- read_csv('./MinhNhatDo/summary_country.csv')
