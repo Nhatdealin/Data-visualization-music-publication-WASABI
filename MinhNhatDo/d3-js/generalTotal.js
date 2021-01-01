@@ -1,14 +1,3 @@
-function sortByProperty(property){  
-    return function(a,b){  
-       if(parseInt(a[property]) < parseInt(b[property]))  
-          return 1;  
-       else if(parseInt(a[property]) > parseInt(b[property]))  
-          return -1;  
-   
-       return 0;  
-    }  
- }
-
  function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

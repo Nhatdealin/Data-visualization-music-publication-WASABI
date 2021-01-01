@@ -92,7 +92,7 @@ div#container {
 }
 
 text {
-  font-size: 12px;
+  font-size: 11px;
   fill: #fff;
 }
 
@@ -133,12 +133,12 @@ line#limit {
 }
 
 text.divergence {
-  font-size: 14px;
+  font-size: 11px;
   fill: #ECF0F1;
 }
 
 text.value {
-  font-size: 14px;
+  font-size: 11px;
 }
 
 text.title {

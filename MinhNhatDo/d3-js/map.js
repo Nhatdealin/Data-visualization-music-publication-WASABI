@@ -1,12 +1,15 @@
-function updateMap(world, data_song, data_album, data_artist){
 
+function updateMap(world, data_song, data_album, data_artist){
     var svg = d3.selectAll('#node').attr('width',document.getElementById('nodeDiv').offsetWidth);
         //Using this selection to update the SVG everytime the function is called
     svg.selectAll("*").remove();
 
     removeElementsByClass('d3-tip n');
     
-
+    
+    var margin = {top: 0, right: 0, bottom: 0, left: 10};
+    var width = document.getElementById('nodeDiv').offsetWidth - margin.left - margin.right;
+    var height = document.getElementById('nodeDiv').offsetHeight - margin.top - margin.bottom;
     var format = d3.format(",");
 
 // Set tooltips
@@ -19,9 +22,6 @@ function updateMap(world, data_song, data_album, data_artist){
                 + "<strong>Artis: </strong><span class='details'>" + format(data_artist.get(d.id) || 0) +"<br></span>";
                 })
 
-    var margin = {top: 0, right: 0, bottom: 0, left: 10},s
-                width = document.getElementById('nodeDiv').offsetWidth - margin.left - margin.right,
-                height = document.getElementById('nodeDiv').offsetHeight - margin.top - margin.bottom;
     var color = d3.scaleThreshold()
         .domain([1, 11, 21 ,51, 101, 501, 1001, 5001, 10001])
         .range(d3.schemeBlues[9]);

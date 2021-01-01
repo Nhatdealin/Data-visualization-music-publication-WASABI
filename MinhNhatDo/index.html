@@ -20,9 +20,10 @@
 <script src="d3-js/d3-tip.js"></script>
 <script type="text/javascript" src="generated_data/summary_country.js"></script>
 <script type="text/javascript" src="generated_data/summary_total.js"></script>
+<script type="text/javascript" src="world.js"></script>
 <script type="text/javascript" src="d3-js/countrySpecificBar.js"></script>
 <script type="text/javascript" src="d3-js/generalTotal.js"></script>
-<script type="text/javascript" src="world.js"></script>
+<script type="text/javascript" src="d3-js/top_6_worldwide.js"></script>
 <script type="text/javascript" src="d3-js/map.js"></script>
 <script type="text/javascript" src="d3-js/d3-simple-slider.min.js"></script>
 
@@ -42,7 +43,7 @@
                 <div class = 'card' style = 'height:98.5%;width: 100%;background : #2D3642;' id = 'generalDiv'>
                     <svg style = 'padding-top:3%;align-items: center' width="90%" id = "Totalsummary" class = 'zulu'></svg>
                 </div>
-                <div style = 'height: 1.5%'></div>
+                <div style = 'height: 3px'></div>
                 <div class = 'card' style = 'height:100%;background : #2D3642;align-items: center;' id = 'worldRaceDiv'>
                    <!--  <div width="50%">
                             <p>Select Year: </p>
@@ -67,7 +68,7 @@
                     
                 </div>
             </div>
-            <div style = 'width: 0.7%'></div>
+            <div style = 'width: 5px'></div>
             <div class = "col-md-7" style="height:100%;width:100%;min-width:45%;" id = "divBox">
                 <div class = 'card' style = 'height:100%;background : #2D3642;' id = 'nodeDiv'>
                     <svg width="100%" id = "node" class = 'bravo'></svg>
@@ -80,14 +81,22 @@
                         </center>
                     </div>
 
-
                 </div>
-                <div style = 'height: 4.5%'></div>
-                <div class = 'card' style = 'height: 400px; background: #2d3642' id = 'lineDiv'>
-                    <svg height ="350px" width="100%" id = "lineNode" class = 'delta'></svg>
+                <div style = 'height: 3px'></div>
+                <div class = 'card' style = 'height: 100%; background: #2d3642' id = 'lineDiv'>
+                    <svg height ="100%" width="100%" id = "timelineNode" class = 'delta'></svg>
                 </div>
             </div>
-        </div>
+            <div style = 'width: 5px'></div>
+            <div class = "col-md-2" style="height:100%;width:100%; min-width:24%;" >
+                <div class = 'card' style = 'height:410px;background : #2D3642' id = 'top6Div'>
+                    <svg height =100% width="100px" id = "Top6" class = 'alpha'></svg>
+                </div>
+                <div style = 'height: 1.5%'></div>
+                <div class = 'card' style = 'height:430px; background: #2d3642' id = 'lineDiv'>
+                    <svg height ="100%" width="100%" id = "lineNode" class = 'delta'></svg>
+                </div>
+            </div>
     </div>
         
     </div>
@@ -95,32 +104,35 @@
         if(document.documentElement.scrollHeight <= document.documentElement.offsetWidth){
             //first column
             document.getElementById("Totalsummary").style.height = (document.documentElement.scrollHeight * 0.26) + "px"
-            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.625) + "px"
+            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.525) + "px"
             // document.getElementById("statusNode").style.height = (document.documentElement.scrollHeight * 0.1) + "px"
 
             //second column
-            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.45) + "px"
+            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.4) + "px"
+            document.getElementById("timelineNode").style.height = (document.documentElement.scrollHeight * 0.43) + "px"
+            document.getElementById("Top6").style.height = (document.documentElement.scrollHeight * 0.415) + "px"
 
             //Second column
 
         }
         else{
-            document.getElementById("Totalsummary").style.height = (390) + "px"
-            document.getElementById("worldRace").style.height = (500) + "px"
-            // document.getElementById("statusNode").style.height = (196) + "px"
+            document.getElementById("Totalsummary").style.height = (300) + "px"
+            document.getElementById("worldRace").style.height = (390) + "px"
+            document.getElementById("node").style.height = (370) + "px"
+            document.getElementById("timelineNode").style.height = (320) + "px"
+            document.getElementById("Top6").style.height = (600) + "px"
         }
     </script>
     <script>
 
-var margin = {top: 20, right: 100, bottom: 20, left: 20},
-        padding = {top: 0, right: 0, bottom: 0, left: 0},
-        vizWidth = 960,
-        vizHeight = 500,
-        plotWidth = vizWidth - margin.left - margin.right,
-        plotHeight = vizHeight - margin.top - margin.bottom,
-        panelWidth = plotWidth - padding.left - padding.right,
-        panelHeight = plotHeight - padding.top - padding.bottom;
-
+// var margin = {top: 20, right: 100, bottom: 20, left: 20},
+//         padding = {top: 0, right: 0, bottom: 0, left: 0},
+//         vizWidth = 960,
+//         vizHeight = 500,
+//         plotWidth = vizWidth - margin.left - margin.right,
+//         plotHeight = vizHeight - margin.top - margin.bottom,
+//         panelWidth = plotWidth - padding.left - padding.right,
+//         panelHeight = plotHeight - padding.top - padding.bottom;
 var div = d3.select('body')
                 .append('div')
                 .style('position', 'absolute')
@@ -130,7 +142,7 @@ var div = d3.select('body')
                 .style('color', 'white')
 // The svg
 var year = 2010
-var min_year = d3.min(data_year, function(d) { return d["year"]; }),
+var min_year = 1946,
     max_year = d3.max(data_year, function(d) { return d["year"]; });
 
 var dataTime = d3.range(min_year, max_year).map(function(d) {
@@ -140,7 +152,6 @@ var gender = "All"
 var radios = document.querySelectorAll('input[type=radio][name="gender"]');
     radios.forEach(radio => radio.addEventListener('change', () => {
         gender = radio.value;
-        console.log(gender)
         update_data();
         updateMap(world, data_song, data_album, data_artist);
         generalSummary(year);
@@ -148,15 +159,16 @@ var radios = document.querySelectorAll('input[type=radio][name="gender"]');
 var slider = d3
     .sliderVertical()
     .min((new Date(min_year,1,1)))
-    .max((new Date(max_year + 1,1,1)))
+    .max((new Date(max_year,1,1)))
     .step(1000 * 60 * 60 * 24 * 365)
     .width(50)
-    .height(400)
+    .height(document.getElementById("worldRaceDiv").offsetHeight*.7)
     .default((new Date(year,1,1)))
     .tickFormat(d3.timeFormat('%Y'))
     .on('onchange', year_val => {
         year = year_val.getFullYear();
         update_data();
+        top6();
         updateMap(world, data_song, data_album, data_artist);
         generalSummary(year);
     });
@@ -165,7 +177,7 @@ var slider = d3
     .append('g')
     .attr("class", "slider")
     .attr('width', 50)
-    .attr('height', 500)
+    .attr('height', document.getElementById('worldRaceDiv').offsetHeight*.7)
     .attr("x", 100)
     .attr("y", 100)
     .attr('transform', 'translate(70,10)')
@@ -179,7 +191,9 @@ var slider = d3
 // Data and color scale
 var data_song = d3.map()
     data_album = d3.map()
-    data_artist = d3.map();
+    data_artist = d3.map()
+    filtered_result = [];
+
 function update_data(){
     data_song = d3.map()
     data_album = d3.map()
@@ -192,23 +206,23 @@ function update_data(){
         filtered_data = data_year.filter(function(item){
         return item.year == year & item.gender == gender})
     }
-    
-    var result = [];
+    filtered_result = [];
     filtered_data.reduce(function(res, value) {
-       if (!res[value.code]) {
-            res[value.code] = { code: value.code, count_song: 0 , count_album: 0, count_artist: 0};
-            result.push(res[value.code])
+        if (typeof value.code !== 'undefined' || typeof value.name !== 'undefined'){
+            if (!res[value.code]) {
+                res[value.code] = { code: value.code, name: value.name, count_song: 0 , count_album: 0, count_artist: 0};
+                filtered_result.push(res[value.code])
+              }
+          res[value.code].count_song +=  value.count_song
+          res[value.code].count_album +=  value.count_album
+          if(!isNaN(value.count_artist)){
+            res[value.code].count_artist +=  value.count_artist
           }
-      res[value.code].count_song +=  value.count_song
-      res[value.code].count_album +=  value.count_album
-      if(!isNaN(value.count_artist)){
-        res[value.code].count_artist +=  value.count_artist
-      }
-        
+        }
       return res;
     }, {});
     
-    result.forEach(function(d) { 
+    filtered_result.forEach(function(d) { 
                 data_song.set(d.code, +d.count_song);
                 data_album.set(d.code, +d.count_album);
                 data_artist.set(d.code, +d.count_artist);
@@ -222,6 +236,7 @@ function removeElementsByClass(className){
         }
 
 update_data()
+top6()
 updateMap(world, data_song, data_album, data_artist)
 countrySpecificBar("total")
 generalSummary(year)

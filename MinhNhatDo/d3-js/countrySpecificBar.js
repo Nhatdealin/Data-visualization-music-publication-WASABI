@@ -41,9 +41,9 @@ function countrySpecificBar(country){
 
     let ordinals = []
 
-    d3.selectAll('#lineNode').selectAll('*').remove()        
+    d3.selectAll('#timelineNode').selectAll('*').remove()        
 
-    var svg = d3.select('#lineNode')
+    var svg = d3.select('#timelineNode')
                 .attr('width', width + margin.left + margin.right)
                 .attr('height', height*1.4 + margin.top + margin.bottom )
                 .append('g')
@@ -190,7 +190,7 @@ function countrySpecificBar(country){
 
     svg.append('text')
       .attr('class', 'title')
-      .attr('x', width / 2 + margin.left)
+      .attr('x', width / 2)
       .attr('y', 5)
       .attr('text-anchor', 'middle')
       .text('Number of songs in ' + country + ' from 1995 to ' + max_year)
