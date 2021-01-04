@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/heatMap.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootStrap.css">
-    <title>WASABI DATASET</title>
+    <title>WASABI DATASET ANALIZATION</title>
 </head>
 <!-- Add a slider -->
 
@@ -24,6 +24,7 @@
 <script type="text/javascript" src="d3-js/countrySpecificBar.js"></script>
 <script type="text/javascript" src="d3-js/generalTotal.js"></script>
 <script type="text/javascript" src="d3-js/top_6_worldwide.js"></script>
+<script type="text/javascript" src="d3-js/totalWorld.js"></script>
 <script type="text/javascript" src="d3-js/map.js"></script>
 <script type="text/javascript" src="d3-js/d3-simple-slider.min.js"></script>
 
@@ -32,7 +33,7 @@
 <body class = 'body' style = 'background-color:#212733 !important;'>
     <div class = "col-lg-12" style = "width:100%;height:1%; padding-bottom:0%;background-color: black;">
         <h1 style = "text-align: center; font-family: monospace; font-weight: bold;font-size: 30px;opacity: 1;padding-top: 0%; color: white">OVERVIEW OF MUSIC PUBLICATION</h1>
-        <center style = 'display:grid'>
+        <center style = 'display:grid'> 
                 <a style = 'font-size:90%;color:white;'>Minh Nhat Do</a>        
         </center>
     </div>
@@ -40,11 +41,11 @@
     <div class = 'container-fluid' style = 'width:100%; height:100%'>
         <div class = "row no-gutters" style = "width:100%;height:100%; max-width:100%; max-height: 100%; padding-top:12px; flex-wrap: wrap">
             <div class = "col-md-2" style="height: 100%; width: 90%;" id = "divBoxtopworld_race">
-                <div class = 'card' style = 'height:98.5%;width: 100%;background : #2D3642;' id = 'generalDiv'>
+                <div class = 'card' style = 'height:100%;width: 100%;background : #2D3642;' id = 'generalDiv'>
                     <svg style = 'padding-top:3%;align-items: center' width="90%" id = "Totalsummary" class = 'zulu'></svg>
                 </div>
                 <div style = 'height: 3px'></div>
-                <div class = 'card' style = 'height:100%;background : #2D3642;align-items: center;' id = 'worldRaceDiv'>
+                <div class = 'card' style = 'height:100%;background : #2D3642;align-items: center;' id = 'filterDiv'>
                    <!--  <div width="50%">
                             <p>Select Year: </p>
                             <svg width="40%" id = "worldRace" class = 'filter'></svg>
@@ -74,27 +75,27 @@
                     <svg width="100%" id = "node" class = 'bravo'></svg>
                         
                     <div class = 'aboveMap'>
-                            <center style='padding-top:1%; padding-bottom:0%;'> 
+                            <center style='padding-top:1%; padding-bottom:0.25%;'> 
                             <text style = 'color:white;'>Click to visualize graphs per country</text>
-                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="countrySpecificBar('total');document.getElementById('resetButton').style.visibility= 'hidden'">
+                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="selected_country='total',countrySpecificBar('total', gender);document.getElementById('resetButton').style.visibility= 'hidden'">
                                 Reset</button>
                         </center>
                     </div>
 
                 </div>
                 <div style = 'height: 3px'></div>
-                <div class = 'card' style = 'height: 100%; background: #2d3642' id = 'lineDiv'>
+                <div class = 'card' style = 'height: 100%; background: #2d3642' id = 'timelineDiv'>
                     <svg height ="100%" width="100%" id = "timelineNode" class = 'delta'></svg>
                 </div>
             </div>
             <div style = 'width: 5px'></div>
             <div class = "col-md-2" style="height:100%;width:100%; min-width:24%;" >
-                <div class = 'card' style = 'height:410px;background : #2D3642' id = 'top6Div'>
-                    <svg height =100% width="100px" id = "Top6" class = 'alpha'></svg>
+                <div class = 'card' style = 'height:100%;background : #2D3642' id = 'latestCaseDiv'>
+                    <svg height =100% width="100%" id = "latestCasesNode" class = 'alpha'></svg>
                 </div>
-                <div style = 'height: 1.5%'></div>
-                <div class = 'card' style = 'height:430px; background: #2d3642' id = 'lineDiv'>
-                    <svg height ="100%" width="100%" id = "lineNode" class = 'delta'></svg>
+                <div style = 'height: 5px'></div>
+                <div class = 'card' style = 'height:100%; background: #2d3642' id = 'top6Div'>
+                    <svg height ="100%" width="100%" id = "Top6" class = 'delta'></svg>
                 </div>
             </div>
     </div>
@@ -109,8 +110,9 @@
 
             //second column
             document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.4) + "px"
-            document.getElementById("timelineNode").style.height = (document.documentElement.scrollHeight * 0.43) + "px"
-            document.getElementById("Top6").style.height = (document.documentElement.scrollHeight * 0.415) + "px"
+            document.getElementById("timelineNode").style.height = (document.documentElement.scrollHeight * 0.425) + "px"
+            document.getElementById("Top6").style.height = (document.documentElement.scrollHeight * 0.515) + "px"
+            document.getElementById("latestCasesNode").style.height = (document.documentElement.scrollHeight * 0.38) + "px"
 
             //Second column
 
@@ -120,7 +122,7 @@
             document.getElementById("worldRace").style.height = (390) + "px"
             document.getElementById("node").style.height = (370) + "px"
             document.getElementById("timelineNode").style.height = (320) + "px"
-            document.getElementById("Top6").style.height = (600) + "px"
+            document.getElementById("Top6").style.height = (800) + "px"
         }
     </script>
     <script>
@@ -148,11 +150,15 @@ var min_year = 1946,
 var dataTime = d3.range(min_year, max_year).map(function(d) {
     return new Date(d, 1, 1);
   });
+var filtered_result = [];
 var gender = "All"
+var selected_country = "total"
 var radios = document.querySelectorAll('input[type=radio][name="gender"]');
     radios.forEach(radio => radio.addEventListener('change', () => {
         gender = radio.value;
         update_data();
+        top6();
+        countrySpecificBar(selected_country, gender)
         updateMap(world, data_song, data_album, data_artist);
         generalSummary(year);
     })); 
@@ -162,7 +168,7 @@ var slider = d3
     .max((new Date(max_year,1,1)))
     .step(1000 * 60 * 60 * 24 * 365)
     .width(50)
-    .height(document.getElementById("worldRaceDiv").offsetHeight*.7)
+    .height(document.getElementById("filterDiv").offsetHeight*.7)
     .default((new Date(year,1,1)))
     .tickFormat(d3.timeFormat('%Y'))
     .on('onchange', year_val => {
@@ -177,7 +183,7 @@ var slider = d3
     .append('g')
     .attr("class", "slider")
     .attr('width', 50)
-    .attr('height', document.getElementById('worldRaceDiv').offsetHeight*.7)
+    .attr('height', document.getElementById('filterDiv').offsetHeight*.7)
     .attr("x", 100)
     .attr("y", 100)
     .attr('transform', 'translate(70,10)')
@@ -191,8 +197,7 @@ var slider = d3
 // Data and color scale
 var data_song = d3.map()
     data_album = d3.map()
-    data_artist = d3.map()
-    filtered_result = [];
+    data_artist = d3.map();
 
 function update_data(){
     data_song = d3.map()
@@ -238,8 +243,9 @@ function removeElementsByClass(className){
 update_data()
 top6()
 updateMap(world, data_song, data_album, data_artist)
-countrySpecificBar("total")
+countrySpecificBar(selected_country, gender)
 generalSummary(year)
+totalWorld()
 var w = window.innerWidth;
         var h = window.innerHeight;
         window.addEventListener("resize", function(event){
@@ -248,14 +254,11 @@ var w = window.innerWidth;
 
             if( Math.abs(w*h - new_w*new_h) > 100000){
                 updateMap(world, data_song, data_album, data_artist)
-                countrySpecificBar("total")
+                countrySpecificBar(selected_country, gender)
                 generalSummary(year);
-                // worldRace('all');
-                // top6();
-                // countrySpecificHist('all');
-                // lineGraph('all');
-                // worldPercent('all');
-                // latestCases('all');
+                top6();
+                totalWorld();
+
             }
 
         });

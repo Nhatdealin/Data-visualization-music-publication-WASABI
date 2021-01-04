@@ -15,7 +15,7 @@ function generalSummary(year){
     width = document.getElementById('generalDiv').offsetWidth*0.95
     height = document.getElementById('generalDiv').offsetHeight*0.95
     svgRace.append('text')
-        .text(['General summary'])
+        .text('General summary (' + year + ')')
         .style('fill', 'white')
         .attr("text-anchor", "middle")
         .style('font-size', (0.09*width)+'px')

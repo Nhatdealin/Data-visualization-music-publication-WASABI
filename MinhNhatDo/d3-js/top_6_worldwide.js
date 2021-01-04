@@ -52,7 +52,7 @@ function top6(){
         .append('text')
         .text(['Ranking countries (Song)'])
         .style('fill', 'white')
-        .style('font-size', (0.062*width)+'px')
+        .style('font-size', (0.06*width)+'px')
         .style('font-weight', 'bold')
         .attr('x', width/7)
         .attr('y', 0.08*height);
@@ -70,7 +70,7 @@ function top6(){
         })
         .attr('x', (0.005*width + width/12))
         .attr('y', function(d,i){
-            return i*(0.14*height) + (0.25*height);
+            return i*(0.13*height) + (0.25*height);
         });
 
     svgRace.selectAll('body')
@@ -88,7 +88,7 @@ function top6(){
         .style('font-weight', 'bold')
         .attr('x', (0.07*width + width/6))
         .attr('y', function(d,i){
-            return i*(0.14*height) + (0.25*height);
+            return i*(0.13*height) + (0.26*height);
         });
 
     svgRace.selectAll('body')
@@ -106,7 +106,7 @@ function top6(){
         })
         .attr('x', (0.53*width + width/6))
         .attr('y', function(d,i){
-            return i*(0.14*height) + (0.25*height);
+            return i*(0.13*height) + (0.255*height);
         });
 
 }

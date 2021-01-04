@@ -1,6 +1,6 @@
 
 
-function countrySpecificBar(country){
+function countrySpecificBar(country, gender){
 
     var parseDate = d3.timeParse("%Y-%m-%d");
     let margin = {
@@ -9,14 +9,13 @@ function countrySpecificBar(country){
         bottom: 0,
         left: 55
     },
-    width = document.getElementById('lineDiv').offsetWidth - margin.left - margin.right,
-    height = document.getElementById('lineDiv').offsetHeight*0.8 - margin.top - margin.bottom,
+    width = document.getElementById('timelineDiv').offsetWidth - margin.left - margin.right,
+    height = document.getElementById('timelineDiv').offsetHeight*0.8 - margin.top - margin.bottom,
     node
-    console.log(height)
     let data = []
     if(country == "total"){
         temp_data = data_year.filter(function(item){
-            return item.year >= 1995})
+            return item.year >= 1995 & typeof item.name !== 'undefined'})
     }
     else{
         if(country == "USA"){
@@ -24,6 +23,10 @@ function countrySpecificBar(country){
         }
          temp_data = data_year.filter(function(item){
             return item.name == country & item.year >= 1995})
+    }
+    if(gender != "All"){
+         temp_data = temp_data.filter(function(item){
+            return item.gender == gender})
     }
     var result = [];
     temp_data.reduce(function(res, value) {
@@ -45,7 +48,7 @@ function countrySpecificBar(country){
 
     var svg = d3.select('#timelineNode')
                 .attr('width', width + margin.left + margin.right)
-                .attr('height', height*1.4 + margin.top + margin.bottom )
+                .attr('height', height*.8 + margin.top + margin.bottom )
                 .append('g')
                 .attr('transform', `translate(${margin.left}, ${margin.top})`)
                 // .call(
@@ -193,6 +196,6 @@ function countrySpecificBar(country){
       .attr('x', width / 2)
       .attr('y', 5)
       .attr('text-anchor', 'middle')
-      .text('Number of songs in ' + country + ' from 1995 to ' + max_year)
+      .text('Number of songs in ' + country + ' from 1995 to ' + max_year + " ("+gender+")")
 
 }
