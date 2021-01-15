@@ -90,11 +90,15 @@ div#container {
 .bar {
   fill: #80cbc4;
 }
-
-text {
-  font-size: 11px;
+text.parameter-value{
+  font-size: 15px !important;
   fill: #fff;
 }
+text {
+  font-size: 13px;
+  fill: #fff;
+}
+
 
 path {
   stroke: gray;
