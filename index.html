@@ -1,50 +1,264 @@
+
 <!DOCTYPE html>
-<html lang="en-US">
-
 <head>
-
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	
-	<!-- SEO -->
-	<title>Data visualization</title>
-	<meta name="description" content="This is my Data visualization project on WASABI dataset" />
-	<meta name="robots" content="index, follow" />
-	<meta name="referrer" content="always" />
-
-	<!-- Social & Open Graph -->
-	<meta property="og:title" content="Minh Nhat Do - Data visualization" />
-	<meta property="og:description" content="This is my Data visualization project on WASABI dataset" /><!-- include your hosted image full URL -->
-	<meta property="og:url" content="https://nhatdealin.github.io/Data-visualization-MDSAI/" />
-
-	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="images/favicon.png" sizes="32x32">
-
-	<!-- Styles -->
-	<link rel='stylesheet' href='assets/css/me.css' type='text/css' media='screen' />
-	<meta name="viewport" content="width=device-width,initial-scale=1" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/choroplethMap.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootStrap.css">
+    <title>WASABI DATASET ANALIZATION</title>
 </head>
+<!-- Add a slider -->
 
-<body id="fullsingle" class="page-template-page-fullsingle-me">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
 
-<div class="fs-me">
+<script src="d3-js/d3-tip.js"></script>
+<script type="text/javascript" src="generated_data/summary_country.js"></script>
+<script type="text/javascript" src="generated_data/summary_total.js"></script>
+<script type="text/javascript" src="world.js"></script>
+<script type="text/javascript" src="d3-js/countrySpecificBar.js"></script>
+<script type="text/javascript" src="d3-js/generalTotal.js"></script>
+<script type="text/javascript" src="d3-js/top_6_worldwide.js"></script>
+<script type="text/javascript" src="d3-js/totalWorld.js"></script>
+<script type="text/javascript" src="d3-js/map.js"></script>
+<script type="text/javascript" src="d3-js/d3-simple-slider.min.js"></script>
 
-	<!-- Content Container -->
-	<div class="me-content">
-	
 
-		<div class="bio">
-			
-			<p>This is our project of visualization on Wasabi dataset</p>
-			<a href="./MinhNhatDo/index.html">>>> Minh Nhat Do <<<</a>
-<!-- 			<a href="./EliasBoughosn/datavisProject.html">>>> Elias Boughosn <<<</a>
-			<a href="./SaiMuttavarapu/treemap.html">>>> Sai Muttavarapu <<<</a> -->
-		</div>
 
-	</div>
+<body class = 'body' style = 'background-color:#212733 !important;'>
+    <div class = "col-lg-12" style = "width:100%;height:1%; padding-bottom:0%;background-color: black;">
+        <h1 style = "text-align: center; font-family: monospace; font-weight: bold;font-size: 30px;opacity: 1;padding-top: 0%; color: white">THE WORLDWIDE DISTRIBUTION OF MUSIC PUBLICATION</h1>
+        <center style = 'display:grid'> 
+                <a style = 'font-size:90%;color:white;'>Minh Nhat Do</a>        
+        </center>
+    </div>
 
-</div>
+    <div class = 'container-fluid' style = 'width:100%; height:100%'>
+        <div class = "row no-gutters" style = "width:100%;height:100%; max-width:100%; max-height: 100%; padding-top:12px; flex-wrap: wrap">
+            <div class = "col-md-2" style="height: 100%; width: 90%;" id = "divBoxtopworld_race">
+                <div class = 'card' style = 'height:100%;width: 100%;background : #2D3642;' id = 'generalDiv'>
+                    <svg style = 'padding-top:3%;align-items: center' width="90%" id = "Totalsummary" class = 'zulu'></svg>
+                </div>
+                <div style = 'height: 3px'></div>
+                <div class = 'card' style = 'height:100%;background : #2D3642;align-items: center;' id = 'filterDiv'>
+                   <!--  <div width="50%">
+                            <p>Select Year: </p>
+                            <svg width="40%" id = "worldRace" class = 'filter'></svg>
+                        </div> -->
+                    <p style="color: white; font-size: 24px;margin-top: 10px;margin-bottom:1px">Filter parameters</p>
+                    <p style="color: white; font-size: 16px;margin-top: 1px;margin-bottom:5px">Adjust filter parameters to update map</p>
+                    <div style="height:100%; display: flex;align-items: center;flex-direction: row">
+                        <div style = 'width:45%'>
+                            <p style="color: white; text-align: center;font-weight: bold">Year</p>
+                            <svg width="100%" id = "worldRace" class = 'charlie'></svg>
+                        </div>
+                        
+                        <div  style = 'width:55%'>
+                            <p style="color: white; font-weight: bold">Artist's Gender</p>
+                          <input type="radio" name="gender" value="Male"> <a style="color: white">Male</a><br>
+                          <input type="radio" name="gender" value="Female"> <a style="color: white">Female</a><br>
+                          <input type="radio" name="gender" value="Group"> <a style="color: white">Group</a><br>
+                          <input type="radio" name="gender" value="All" checked> <a style="color: white">All</a><br>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div style = 'width: 5px'></div>
+            <div class = "col-md-7" style="height:100%;width:100%;min-width:45%;" id = "divBox">
+                <div class = 'card' style = 'height:100%;background : #2D3642;' id = 'nodeDiv'>
+
+                    <svg width="100%" id = "node" class = 'bravo'></svg>
+                        
+                    <div class = 'aboveMap'>
+                            <center style='padding-top:1%; padding-bottom:0.25%;'> 
+                            <text style = 'color:white;'>Click to visualize graphs per country - Hold your mouse cursor over map to visualize detail information</text>
+                            <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="selected_country='total',countrySpecificBar('total', gender);document.getElementById('resetButton').style.visibility= 'hidden'">
+                                Reset</button>
+                        </center>
+                    </div>
+
+                </div>
+                <div style = 'height: 3px'></div>
+                <div class = 'card' style = 'height: 100%; background: #2d3642' id = 'timelineDiv'>
+                    <svg height ="100%" width="100%" id = "timelineNode" class = 'delta'></svg>
+                </div>
+            </div>
+            <div style = 'width: 5px'></div>
+            <div class = "col-md-2" style="height:100%;width:100%; min-width:24%;" >
+                <div class = 'card' style = 'height:100%;background : #2D3642' id = 'latestCaseDiv'>
+                    <svg height =100% width="100%" id = "latestCasesNode" class = 'alpha'></svg>
+                </div>
+                <div style = 'height: 5px'></div>
+                <div class = 'card' style = 'height:100%; background: #2d3642' id = 'top6Div'>
+                    <svg height ="100%" width="100%" id = "Top6" class = 'delta'></svg>
+                </div>
+            </div>
+    </div>
+        
+    </div>
+    <script>
+        if(document.documentElement.scrollHeight <= document.documentElement.offsetWidth){
+            //first column
+            document.getElementById("Totalsummary").style.height = (document.documentElement.scrollHeight * 0.26) + "px"
+            document.getElementById("worldRace").style.height = (document.documentElement.scrollHeight * 0.525) + "px"
+            // document.getElementById("statusNode").style.height = (document.documentElement.scrollHeight * 0.1) + "px"
+
+            //second column
+            document.getElementById("node").style.height = (document.documentElement.scrollHeight * 0.4) + "px"
+            document.getElementById("timelineNode").style.height = (document.documentElement.scrollHeight * 0.425) + "px"
+            document.getElementById("Top6").style.height = (document.documentElement.scrollHeight * 0.515) + "px"
+            document.getElementById("latestCasesNode").style.height = (document.documentElement.scrollHeight * 0.38) + "px"
+
+            //Second column
+
+        }
+        else{
+            document.getElementById("Totalsummary").style.height = (300) + "px"
+            document.getElementById("worldRace").style.height = (390) + "px"
+            document.getElementById("node").style.height = (370) + "px"
+            document.getElementById("timelineNode").style.height = (320) + "px"
+            document.getElementById("Top6").style.height = (800) + "px"
+        }
+    </script>
+    <script>
+
+
+var div = d3.select('body')
+                .append('div')
+                .style('position', 'absolute')
+                .style('left', '10px')
+                .style('top', '30px')
+                .style('background-color', 'black')
+                .style('color', 'white')
+// The svg
+var year = 2010
+var min_year = 1946,
+    max_year = d3.max(data_year, function(d) { return d["year"]; });
+
+var dataTime = d3.range(min_year, max_year).map(function(d) {
+    return new Date(d, 1, 1);
+  });
+var filtered_result = [];
+var gender = "All"
+var selected_country = "total"
+var radios = document.querySelectorAll('input[type=radio][name="gender"]');
+    radios.forEach(radio => radio.addEventListener('change', () => {
+        gender = radio.value;
+        update_data();
+        top6();
+        countrySpecificBar(selected_country, gender)
+        updateMap(world, data_song, data_album, data_artist);
+        generalSummary(year);
+    })); 
+var slider = d3
+    .sliderVertical()
+    .min((new Date(min_year,1,1)))
+    .max((new Date(max_year,1,1)))
+    .step(1000 * 60 * 60 * 24 * 365)
+    .width(50)
+    .height(document.getElementById("filterDiv").offsetHeight*.7)
+    .default((new Date(year,1,1)))
+    .tickFormat(d3.timeFormat('%Y'))
+    .on('onchange', year_val => {
+        year = year_val.getFullYear();
+        update_data();
+        top6();
+        updateMap(world, data_song, data_album, data_artist);
+        generalSummary(year);
+    });
+ 
+  d3.selectAll("#worldRace")
+    .append('g')
+    .attr("class", "slider")
+    .attr('width', 50)
+    .attr('height', document.getElementById('filterDiv').offsetHeight*.7)
+    .attr("x", 100)
+    .attr("y", 100)
+    .attr('transform', 'translate(70,10)')
+    .style('fill', 'white')
+    .call(slider);
+
+
+// Map and projection
+
+
+// Data and color scale
+var data_song = d3.map()
+    data_album = d3.map()
+    data_artist = d3.map();
+
+function update_data(){
+    data_song = d3.map()
+    data_album = d3.map()
+    data_artist = d3.map()
+    if (gender == "All"){
+        filtered_data = data_year.filter(function(item){
+        return item.year == year})
+    }
+    else{
+        filtered_data = data_year.filter(function(item){
+        return item.year == year & item.gender == gender})
+    }
+    filtered_result = [];
+    filtered_data.reduce(function(res, value) {
+        if (typeof value.code !== 'undefined' || typeof value.name !== 'undefined'){
+            if (!res[value.code]) {
+                res[value.code] = { code: value.code, name: value.name, count_song: 0 , count_album: 0, count_artist: 0};
+                filtered_result.push(res[value.code])
+              }
+          res[value.code].count_song +=  value.count_song
+          res[value.code].count_album +=  value.count_album
+          if(!isNaN(value.count_artist)){
+            res[value.code].count_artist +=  value.count_artist
+          }
+        }
+      return res;
+    }, {});
+    
+    filtered_result.forEach(function(d) { 
+        if (typeof d.code !== 'undefined'){
+                data_song.set(d.code, +d.count_song);
+                data_album.set(d.code, +d.count_album);
+                data_artist.set(d.code, +d.count_artist);
+        }
+                })
+}
+function removeElementsByClass(className){
+            var elements = document.getElementsByClassName(className);
+            while(elements.length > 0){
+                elements[0].parentNode.removeChild(elements[0]);
+            }
+        }
+
+update_data()
+top6()
+updateMap(world, data_song, data_album, data_artist)
+countrySpecificBar(selected_country, gender)
+generalSummary(year)
+totalWorld()
+var w = window.innerWidth;
+        var h = window.innerHeight;
+        window.addEventListener("resize", function(event){
+            var new_w = window.innerWidth;
+            var new_h = window.innerHeight;
+
+            if( Math.abs(w*h - new_w*new_h) > 100000){
+                updateMap(world, data_song, data_album, data_artist)
+                countrySpecificBar(selected_country, gender)
+                generalSummary(year);
+                top6();
+                totalWorld();
+
+            }
+
+        });
+
+</script>
 
 </body>
-</html>

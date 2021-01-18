@@ -5,7 +5,7 @@ library(dplyr)
 
 
 setwd("~/Workspaces/DSAI/Data-visualization-MDSAI")
-data <- read_csv('./MinhNhatDo/generated_data/summary_country.csv')
+data <- read_csv('./generated_data/summary_country.csv')
 data
 
 tmp_data <- data %>% 
@@ -18,6 +18,6 @@ tmp_1[tmp_1$year > 1950,] %>%
   theme(legend.position="top") + labs(y = "Number of songs") + ggtitle("Bar plot number of song and year")
 
 
-write_json(tmp_data,"./MinhNhatDo/summary_total.json")
-write_json(data,"./MinhNhatDo/summary_country.json")
+write_json(tmp_data,"./summary_total.json")
+write_json(data,"./summary_country.json")
 

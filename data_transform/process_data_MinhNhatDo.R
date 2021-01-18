@@ -70,9 +70,9 @@ data[is.na(data$count_song),]$count_song = 0
 data[is.na(data$count_album),]$count_album = 0
 data[is.na(data$count_artist),]$count_artist = 0
 data[is.na(data$gender),]$gender = 'Group'
-write.csv(data, "./MinhNhatDo/summary_country.csv", row.names=FALSE)
+write.csv(data, "./summary_country.csv", row.names=FALSE)
 
-data <- read_csv('./MinhNhatDo/summary_country.csv')
+data <- read_csv('./summary_country.csv')
 hist(data$count_song)
 
 
