@@ -5,7 +5,7 @@ function updateMap(world, data_song, data_album, data_artist){
     svg.selectAll("*").remove();
 
     removeElementsByClass('d3-tip n');
-    
+    console.log(data_artist)
     
     var margin = {top: 0, right: 0, bottom: 0, left: 10};
     var width = document.getElementById('nodeDiv').offsetWidth - margin.left - margin.right;

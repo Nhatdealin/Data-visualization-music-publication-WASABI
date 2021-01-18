@@ -50,7 +50,8 @@
                             <p>Select Year: </p>
                             <svg width="40%" id = "worldRace" class = 'filter'></svg>
                         </div> -->
-                    <p style="color: white; font-size: 24px;margin-top: 15px;">Filter parameters</p>
+                    <p style="color: white; font-size: 24px;margin-top: 10px;margin-bottom:1px">Filter parameters</p>
+                    <p style="color: white; font-size: 16px;margin-top: 1px;margin-bottom:5px">Adjust filter parameters to update map</p>
                     <div style="height:100%; display: flex;align-items: center;flex-direction: row">
                         <div style = 'width:45%'>
                             <p style="color: white; text-align: center;font-weight: bold">Year</p>
@@ -62,7 +63,6 @@
                           <input type="radio" name="gender" value="Male"> <a style="color: white">Male</a><br>
                           <input type="radio" name="gender" value="Female"> <a style="color: white">Female</a><br>
                           <input type="radio" name="gender" value="Group"> <a style="color: white">Group</a><br>
-                          <input type="radio" name="gender" value="Other"> <a style="color: white">Other</a><br>
                           <input type="radio" name="gender" value="All" checked> <a style="color: white">All</a><br>
                         </div>
                     </div>
@@ -72,11 +72,12 @@
             <div style = 'width: 5px'></div>
             <div class = "col-md-7" style="height:100%;width:100%;min-width:45%;" id = "divBox">
                 <div class = 'card' style = 'height:100%;background : #2D3642;' id = 'nodeDiv'>
+
                     <svg width="100%" id = "node" class = 'bravo'></svg>
                         
                     <div class = 'aboveMap'>
                             <center style='padding-top:1%; padding-bottom:0.25%;'> 
-                            <text style = 'color:white;'>Click to visualize graphs per country, Hold your mouse cursor over map to visualize detail information</text>
+                            <text style = 'color:white;'>Click to visualize graphs per country - Hold your mouse cursor over map to visualize detail information</text>
                             <button type="button" class="btn btn-primary btn-block" id = 'resetButton' style = "width:25%; background-color:transparent; font-size:65%; visibility: hidden" onclick="selected_country='total',countrySpecificBar('total', gender);document.getElementById('resetButton').style.visibility= 'hidden'">
                                 Reset</button>
                         </center>
@@ -228,9 +229,11 @@ function update_data(){
     }, {});
     
     filtered_result.forEach(function(d) { 
+        if (typeof d.code !== 'undefined'){
                 data_song.set(d.code, +d.count_song);
                 data_album.set(d.code, +d.count_album);
                 data_artist.set(d.code, +d.count_artist);
+        }
                 })
 }
 function removeElementsByClass(className){

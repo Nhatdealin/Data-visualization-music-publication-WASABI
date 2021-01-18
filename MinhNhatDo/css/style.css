@@ -90,9 +90,10 @@ div#container {
 .bar {
   fill: #80cbc4;
 }
-text.parameter-value{
+.parameter-value text {
   font-size: 15px !important;
-  fill: #fff;
+  fill: turquoise;
+  font-weight: bold;
 }
 text {
   font-size: 13px;

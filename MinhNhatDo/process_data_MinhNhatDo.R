@@ -64,8 +64,10 @@ data <- data %>% left_join(country, by=c("country"="FIPS 10-4")) %>%
 
 
 data <- data %>% 
-  left_join(new_album, by=c("country"= "country", "year" = "year", 'gender'='gender')) %>%
-  left_join(new_artist, by=c("name"="country", "year"="begin", 'gender'='gender'))
+  full_join(new_album, by=c("country"= "country", "year" = "year", 'gender'='gender')) %>%
+  full_join(new_artist, by=c("name"="country", "year"="begin", 'gender'='gender'))
+data[is.na(data$count_song),]$count_song = 0
+data[is.na(data$count_album),]$count_album = 0
 data[is.na(data$count_artist),]$count_artist = 0
 data[is.na(data$gender),]$gender = 'Group'
 write.csv(data, "./MinhNhatDo/summary_country.csv", row.names=FALSE)
@@ -102,14 +104,14 @@ library(leaflet)
 
 library(RColorBrewer)
 mybins <- c(0, 10, 20, 50 , 100, 500, 1000, 5000, 10000, 30000, 50000, 100000,Inf)
-world_spdf@data$count[is.na(world_spdf@data$count)] = 0
-mypalette <- colorBin(palette="YlOrBr", domain=world_spdf@data$count, na.color="transparent", bins=mybins)
+world_spdf@data$count_song[is.na(world_spdf@data$count_song)] = 0
+mypalette <- colorBin(palette="YlOrBr", domain=world_spdf@data$count_song, na.color="transparent", bins=mybins)
 
 # Prepare the text for tooltips:
 mytext <- paste(
   "Country: ", world_spdf@data$NAME,"<br/>", 
   "Area: ", world_spdf@data$AREA, "<br/>", 
-  "Number of songs: ", world_spdf@data$count, 2, 
+  "Number of songs: ", world_spdf@data$count_song, 2, 
   sep="") %>%
   lapply(htmltools::HTML)
 
