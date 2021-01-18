@@ -1,5 +1,14 @@
 # Data-visualization-MDSAI
 
+![Dashboard visualization](./dashboard.png)
+
+### Project's target
+This project will give users an overview of the general statistics about the current music market. With an intelligent presentation, this project will help users interact directly on the map to gain insights, the concentration of the world music market by color and timelines of the number of songs for each country.
+- Show to users the distribution of songs by country via interactive map
+- Show to users the summary statistic of the number of music publication and artist via some filters
+- Show to users the timelines of the song number in a specific country for many years
+
+
 ## WASABI Song Corpus dataset
 This repository contains the files of the current version of the WASABI Song Corpus, the models we have built on it as well as updates.
 
@@ -29,53 +38,3 @@ The dataset can be explored using the [WASABI Interactive Navigator](https://was
 - NLP Models
   - [Explicit lyrics classifier trained on 438k lyrics](https://mega.nz/#!ndx3zQ4I!K6Qq6Bvf9NXWHejPvMyxwTUJGn-U8K6auuN0gCktcmU)
   - [LDA topic model trained on 1.05M lyrics](https://mega.nz/#!KFhh2AyC!-OaAifvACt3CAo-Pl-D14LIOb6Gx4ReJzjmqY7StwCY)
-
-### Dependencies
-The packages present when successfully running the code are listed in the file [pip list --local](doc/pip%20list%20--local).
-
-### Usage examples
-This [Jupyter Notebook](Showcase.ipynb) shows how to use the different resources.
-
-### Downloading lyrics
-A simple yet effective way to obtain lyrics is querying [LyricWiki](https://lyrics.fandom.com/wiki/LyricWiki) via the Python module [lyricswikia](https://pypi.org/project/lyricwikia/):
-```
-import lyricwikia
-lyrics = lyricwikia.get_lyrics('Led Zeppelin', 'Stairway to heaven')
-```
-
-### Citation
-If you use our resource, please cite the following article:
-```
-@article{fell2019love,
-    title={Love Me, Love Me, Say (and Write!) that You Love Me: Enriching the WASABI Song Corpus with Lyrics Annotations},
-    author={Michael Fell and Elena Cabrio and Elmahdi Korfed and Michel Buffa and Fabien Gandon},
-    journal={arXiv},
-    year={2019},
-    volume={abs/1912.02477}
-}
-```
-
-
-## Downloading and SPARQL Querying
-
-The dataset is downloadable as an RDF dump (in Turtle syntax) from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4312641.svg)](https://doi.org/10.5281/zenodo.4312641)
-
-It can also be queried through our Virtuoso OS SPARQL endpoint http://wasabi.inria.fr/sparql.
-
-You may use the [Faceted Browser](http://wasabi.inria.fr/fct/) to look up text or URIs.
-
-
-The following **named graphs** can be queried from our SPARQL endpoint:
-
-| Named graph    | Description |
-| -------------  | ---- |
-| http://ns.inria.fr/wasabi/graph/ontology/ | WASABI ontology | 
-| http://ns.inria.fr/wasabi/graph/metadata | dataset description + definition of a few properties | 
-| http://ns.inria.fr/wasabi/graph/artists | artists metadata (name, genre, record label, web pages etc.) | 
-| http://ns.inria.fr/wasabi/graph/albums | albums metadata (title, publication date, length etc.) | 
-| http://ns.inria.fr/wasabi/graph/songs | songs metadata (title, album, artist, publication date, chords etc.) |
-
-
-# License
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
