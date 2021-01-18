@@ -73,9 +73,7 @@ function countrySpecificBar(country, gender){
       .range([height , 0])
       .domain([0, max_Y]);
 
-    // vertical grid lines
-    // const makeXLines = () => d3.axisBottom()
-    //   .scale(xScale)
+
 
     const makeYLines = () => d3.axisLeft()
       .scale(yScale)
@@ -87,14 +85,7 @@ function countrySpecificBar(country, gender){
     chart.append('g')
       .call(d3.axisLeft(yScale));
 
-    // vertical grid lines
-    // chart.append('g')
-    //   .attr('class', 'grid')
-    //   .attr('transform', `translate(0, ${height})`)
-    //   .call(makeXLines()
-    //     .tickSize(-height, 0, 0)
-    //     .tickFormat('')
-    //   )
+
 
     chart.append('g')
       .attr('class', 'grid')

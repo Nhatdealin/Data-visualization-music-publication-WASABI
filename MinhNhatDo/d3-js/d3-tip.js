@@ -51,13 +51,6 @@
       tip.show = function() {
 
 
-        // if(window.innerWidth < window.innerHeight){
-        //   console.log('yes')
-        //   var y = d3.event.y*2.1;
-        // }
-        // else{
-        //   var y = d3.event.y +10;
-        // }
 
         var x = d3.event.x - 50;
         var y = d3.event.y + 10;
