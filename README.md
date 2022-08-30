@@ -3,7 +3,7 @@
 ![Dashboard visualization](./dashboard.png)
 
 
-https://nhatdealin.github.io/Data-visualization-music-puplication-WASABI/
+https://nhatdealin.github.io/Data-visualization-music-publication-WASABI/
 
 ### Project's target
 This project will give users an overview of the general statistics about the current music market. With an intelligent presentation, this project will help users interact directly on the map to gain insights, the concentration of the world music market by color and timelines of the number of songs for each country.
